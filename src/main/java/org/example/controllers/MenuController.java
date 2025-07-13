@@ -1,8 +1,8 @@
 package org.example.controllers;
 
-import org.example.dtos.GetMenuItemsRequestDTO;
-import org.example.dtos.GetMenuItemsResponseDTO;
-import org.example.dtos.ResponseStatus;
+import org.example.dtos.*;
+import org.example.exceptions.UnAuthorizedAccess;
+import org.example.exceptions.UserNotFoundException;
 import org.example.models.MenuItem;
 import org.example.services.MenuService;
 
@@ -24,5 +24,23 @@ public class MenuController {
             responseDTO.setResponseStatus(ResponseStatus.FAILURE);
         }
         return responseDTO;
+    }
+
+    public AddMenuItemResponseDTO addMenuItem(AddMenuItemRequestDTO requestDto){
+        AddMenuItemResponseDTO responseDto = new AddMenuItemResponseDTO();
+        try {
+            MenuItem menuItem = menuService.addMenuItem(requestDto.getUserId(), requestDto.getName(), requestDto.getPrice(), requestDto.getDietaryRequirement(), requestDto.getItemType(), requestDto.getDescription());
+            responseDto.setMenuItem(menuItem);
+            responseDto.setStatus(ResponseStatus.SUCCESS);
+        } catch (UserNotFoundException e) {
+            responseDto.setStatus(ResponseStatus.FAILURE);
+        } catch (UnAuthorizedAccess e) {
+            responseDto.setStatus(ResponseStatus.FAILURE);
+        } catch (IllegalArgumentException e) {
+            responseDto.setStatus(ResponseStatus.FAILURE);
+        } catch (Exception e) {
+            responseDto.setStatus(ResponseStatus.FAILURE);
+        }
+        return responseDto;
     }
 }

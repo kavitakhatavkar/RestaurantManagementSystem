@@ -82,3 +82,23 @@ IV. Get Menu Items
         - Refer the GetMenuItemsRequestDto and GetMenuItemsResponseDto classes for understanding the expected input and output to the functionality.
         - Refer the models package for reference of the models.
         - Implement the MenuRepository and MenuService interfaces to achieve the above requirements.
+V. Add Menu Items
+    Problem Statement:
+        You are building a Restaurant Management System. As a part of this system, you need to build a functionality using which the restaurant admin can add menu items to the system.
+    Requirements:
+        i.    The add menu item request will contain the following details:
+        ii.   User id of the admin who is adding the menu item
+        iii.  Name of the menu item
+        iv.   Description of the menu item
+        v.    Price of the menu item
+        vi.   Dietary details of the menu item - whether it is veg or non-veg or vegan
+        vii.  Type of the menu item - whether it is a daily special or a regular menu item
+        viii. Non admin users should not be able to add menu items.
+        ix.   Persist the menu item details in the database.
+        x.    Once the menu item is added, the system should return the menu item in response.
+    Instructions:
+        - Refer the addMenuItem method inside MenuItemController class.
+        - Refer the AddMenuItemRequestDto and AddMenuItemResponseDto for understanding the expected input and output to the functionality.
+        - Refer the models package to understand the models.
+        - Implement the MenuService, MenuRepository and UserRepository interfaces to achieve the above requirements.
+        - We need in memory database implementation for this assignment.

@@ -1,13 +1,12 @@
 package org.example.controllers;
 
-import org.example.dtos.GenerateBillRequestDTO;
-import org.example.dtos.GenerateBillResponseDTO;
-import org.example.dtos.ResponseStatus;
+import org.example.dtos.*;
 import org.example.models.Bill;
+import org.example.models.Order;
 import org.example.services.OrderService;
 
 public class OrderController {
-    private final OrderService orderService;
+    private OrderService orderService;
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
@@ -21,5 +20,17 @@ public class OrderController {
             generateBillResponseDTO.setResponseStatus(ResponseStatus.FAILURE);
         }
         return generateBillResponseDTO;
+    }
+
+    public PlaceOrderResponseDTO placeOrder(PlaceOrderRequestDTO placeOrderRequestDTO) {
+        PlaceOrderResponseDTO placeOrderResponseDTO = new PlaceOrderResponseDTO();
+        try {
+            Order order = orderService.placeOrder(placeOrderRequestDTO.getUserId(), placeOrderRequestDTO.getOrderedItems());
+            placeOrderResponseDTO.setOrder(order);
+            placeOrderResponseDTO.setResponseStatus(ResponseStatus.SUCCESS);
+        } catch (Exception e){
+            placeOrderResponseDTO.setResponseStatus(ResponseStatus.FAILURE);
+        }
+        return placeOrderResponseDTO;
     }
 }
